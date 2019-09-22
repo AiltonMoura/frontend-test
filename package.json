@@ -2,10 +2,22 @@
   "name": "R7FrontendTest",
   "version": "0.0.1",
   "scripts": {
-    "start": "node app.js"
+    "start": "webpack-dev-server --open --hot"
   },
   "dependencies": {
-    "connect": "~3.1.1",
-    "serve-static": "~1.5.3"
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^3.2.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^8.0.0",
+    "vue-loader": "^15.7.1",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1"
   }
 }
