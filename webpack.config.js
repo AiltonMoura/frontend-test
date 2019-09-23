@@ -33,6 +33,10 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
       }
     ]
   },
@@ -44,7 +48,8 @@ module.exports = {
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      'styles': path.resolve(__dirname, './public/stylesheets')
+      'styles': path.resolve(__dirname, './public/stylesheets'),
+      '@': path.resolve(__dirname, './public')
     },
   },
 };

@@ -12,18 +12,43 @@
             </div>
           </div>
         </div>
+        <div id="ranking">
+          <div class="row" v-for="(participante, index) in participantes" :key="index">
+            <div class="col-3">
+              <img :src="participante.picture" width="70px" height="70px"/>
+            </div>
+            <div class="col-9">
+              <p>{{ participante.name }}</p>
+              <p>{{ participante.description }}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import RankingService from './javascripts/services/RankingService'
+
 export default {
   name: 'app',
 
   data () {
     return {
+      participantes: []
     }
+  },
+
+created () {
+    RankingService.find()
+      .then(response => {
+        this.participantes = response.data
+        console.log('p', this.participantes);
+      })
+      .catch(error => {
+        console.error(error);
+      })
   }
 }
 </script>
@@ -34,10 +59,12 @@ export default {
 @import '~styles/dimens';
 
 #app {
-  text-align: $text-align;
-  font-size: $font-size;
   font-family: $font-family;
 };
+
+.container-fluid {
+  background-image: url('./images/background.png')
+}
 
 #header div:nth-child(2) {
   background-color: $secondColor;
@@ -49,12 +76,32 @@ export default {
   z-index: 1;
 }
 
-.container-fluid {
-  background-image: url('./images/background.png')
+#header div:nth-child(2) img{
+  margin-right: 20px;
+  padding: 15px 0;
 }
 
-#header div:nth-child(2) img{
-  margin-right: 20px
+#ranking .row{
+  background-color: $secondColor;
+}
+
+#ranking img {
+  border-radius: 50%;
+  border: $borderRadius $primaryColor
+}
+
+#ranking p:nth-child(1){
+  font-size: $nameSize;
+  color: $primaryColor;
+  font-weight: $bold;
+  margin-bottom: $marginBottomName
+}
+
+#ranking p:nth-child(2){
+  font-size: $descriptionSize;
+  color: $thirdColor;
+  font-weight: $bold;
+  margin-top: $marginTopDescription
 }
 
 </style>
