@@ -12,6 +12,10 @@
             </div>
           </div>
         </div>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div class="col-6">
         <div id="ranking">
           <div class="row" v-for="(participante, index) in participantes" :key="index">
             <div class="col-md-3 col-lg-2">
@@ -20,6 +24,23 @@
             <div class="col-md-9 col-lg-10">
               <p>{{ participante.name }}</p>
               <p>{{ participante.description }}</p>
+              <div id="points">
+                <img src="./images/seta.png" />
+                <table>
+                  <thead>
+                    <th align="center">GOSTAM</th>
+                    <th>NÃO GOSTAM</th>
+                  </thead>
+                  <tbody>
+                    <td>
+                      30%
+                    </td>
+                    <td>
+                      70%
+                    </td>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -76,8 +97,8 @@ created () {
 }
 
 #header div:nth-child(2) img{
-  margin-right: marginImageHeader;
-  padding: 15px 0
+  margin-right: $marginImageHeader;
+  padding: $paddingImageHeader
 }
 
 #ranking .row{
@@ -109,7 +130,40 @@ created () {
   font-size: $descriptionSize;
   color: $thirdColor;
   font-weight: $bold;
-  margin-top: $marginTopDescription
+  margin-top: $marginTopDescription;
+  float: left;
+}
+
+#points {
+  float: right;
+  margin-right: -215px;
+  margin-top: -21px;
+  color: $secondColor
+}
+
+#points thead {
+  background-color: $primaryColor
+}
+
+#points th {
+  font-size: 10px;
+  text-align: center;
+  padding: 2px 8px;
+}
+
+#points td {
+  font-size: 20px;
+  text-align: center;
+  padding: 2px 8px;
+  color: #888;
+  background-color: $secondColor;
+  font-weight: bold;
+  border-right: 1px solid #000;
+
+}
+
+#points th:nth-child(1) {
+  border-right: 1px solid #000;
 }
 
 </style>
