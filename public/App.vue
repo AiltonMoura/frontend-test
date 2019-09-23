@@ -14,10 +14,10 @@
         </div>
         <div id="ranking">
           <div class="row" v-for="(participante, index) in participantes" :key="index">
-            <div class="col-3">
+            <div class="col-md-3 col-lg-2">
               <img :src="participante.picture" width="70px" height="70px"/>
             </div>
-            <div class="col-9">
+            <div class="col-md-9 col-lg-10">
               <p>{{ participante.name }}</p>
               <p>{{ participante.description }}</p>
             </div>
@@ -44,7 +44,6 @@ created () {
     RankingService.find()
       .then(response => {
         this.participantes = response.data
-        console.log('p', this.participantes);
       })
       .catch(error => {
         console.error(error);
@@ -77,12 +76,21 @@ created () {
 }
 
 #header div:nth-child(2) img{
-  margin-right: 20px;
-  padding: 15px 0;
+  margin-right: marginImageHeader;
+  padding: 15px 0
 }
 
 #ranking .row{
   background-color: $secondColor;
+  padding: $rankRowPadding
+}
+
+#ranking .row div:nth-child(2) {
+  padding-top: $rankDivPadding;
+}
+
+#ranking .row:nth-child(2){
+  background-color: $primaryColor
 }
 
 #ranking img {
