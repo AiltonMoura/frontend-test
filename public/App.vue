@@ -25,7 +25,6 @@
               <p>{{ participante.name }}</p>
               <p>{{ participante.description }}</p>
               <div id="points">
-                <img src="./images/seta.png" />
                 <table>
                   <thead>
                     <th align="center">GOSTAM</th>
@@ -33,10 +32,10 @@
                   </thead>
                   <tbody>
                     <td>
-                      30%
+                      {{ participante.positive + '%'}}
                     </td>
                     <td>
-                      70%
+                      {{participante.negative + '%'}}
                     </td>
                   </tbody>
                 </table>
@@ -64,7 +63,10 @@ export default {
 created () {
     RankingService.find()
       .then(response => {
-        this.participantes = response.data
+        this.participantes = response.data.map(participante => {
+          return RankingService.calculate(participante)
+        })
+        console.log('participantes', this.participantes);
       })
       .catch(error => {
         console.error(error);

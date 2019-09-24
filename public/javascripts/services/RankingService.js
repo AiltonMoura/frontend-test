@@ -14,6 +14,14 @@ const RankingService = {
         }
       })
     })
+  },
+
+  calculate (participante) {
+    let total = participante.positive + participante.negative;
+    console.log(total);
+    participante.positive = (participante.positive / total * 100).toFixed()
+    participante.negative = (participante.negative / total * 100).toFixed()
+    return participante;
   }
 }
 
