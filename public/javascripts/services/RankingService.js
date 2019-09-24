@@ -17,10 +17,14 @@ const RankingService = {
   },
 
   calculate (participante) {
-    let total = participante.positive + participante.negative;
-    console.log(total);
-    participante.positive = (participante.positive / total * 100).toFixed()
-    participante.negative = (participante.negative / total * 100).toFixed()
+    let total = parseFloat(participante.positive) + parseFloat(participante.negative);
+    if (!isNaN(total)) {
+      participante.positive = (parseFloat(participante.positive) / total * 100).toFixed()
+      participante.negative = (parseFloat(participante.negative) / total * 100).toFixed()
+    } else {
+      participante.positive = 0;
+      participante.negative = 0;
+    }
     return participante;
   }
 }

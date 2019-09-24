@@ -20,7 +20,7 @@
           <div class="row rowInactive"
             v-for="(participante, index) in participantes" :key="index"
             :class="{rowActive: index === styleActive}"
-            @mouseover="selectItem(index), show(index)" @mouseout="styleActive = false">
+            @mouseover="selectItem(index), show(index)" @mouseout="styleActive = false, open = false">
             <div class="col-md-3 col-lg-2">
               <img width="70px" height="70px"
               class="imgInactive"
@@ -40,7 +40,7 @@
               <div id="points" v-show="index === open">
                 <table>
                   <thead>
-                    <th align="center">GOSTAM</th>
+                    <th>GOSTAM</th>
                     <th>NÃO GOSTAM</th>
                   </thead>
                   <tbody>
@@ -81,20 +81,20 @@ created () {
         let participantesMap = response.data.map(participante => {
           return RankingService.calculate(participante)
         })
-        console.log('participantes', participantesMap);
         this.participantes = this.order(participantesMap);
       })
       .catch(error => {
         console.error(error);
       })
   },
+  
   methods: {
     order (participantes) {
       return participantes.sort(function (a, b) {
-        if (a.positive > b.positive) {
+        if (a.positive < b.positive) {
           return 1;
         }
-        if (a.positive < b.positive) {
+        if (a.positive > b.positive) {
           return -1;
         }
         return 0;
@@ -121,7 +121,8 @@ created () {
 };
 
 .container-fluid {
-  background-image: url('./images/background.png')
+  background-image: url('./images/background.png').
+  height: 100%;
 }
 
 #header div:nth-child(2) {
@@ -156,15 +157,15 @@ created () {
 }
 
 .imgInactive {
-  border-radius: 50%;
-  border: 4px solid $primaryColor;
-  float:left
+  border-radius: $radius;
+  border: $borderRadius $primaryColor;
+  float: $flotl
 }
 
 .imgActive {
-  border-radius: 50%;
-  border: 4px solid #fff;
-  float:left;
+  border-radius: $radius;
+  border: $borderRadius $secondColor;
+  float: $flotl;
 }
 
 #ranking p:nth-child(1) {
@@ -183,7 +184,7 @@ created () {
   font-size: $descriptionSize;
   font-weight: $bold;
   margin-top: $marginTopDescription;
-  float: left;
+  float: $flotl;
 }
 .descriptionInactive {
   color: $thirdColor;
@@ -193,9 +194,9 @@ created () {
 }
 
 #points {
-  float: right;
-  margin-right: -215px;
-  margin-top: -21px;
+  float: $flotr;
+  margin-right: -190px;
+  margin-top: -27px;
   color: $secondColor
 }
 
@@ -205,32 +206,32 @@ created () {
 
 #points th {
   font-size: 10px;
-  text-align: center;
+  text-align: $alignCenter;
   padding: 2px 8px;
 }
 
 #points td {
   font-size: 20px;
-  text-align: center;
+  text-align: $alignCenter;
   padding: 2px 8px;
   color: $thirdColor;
   background-color: $secondColor;
-  font-weight: bold;
-  border-right: 1px solid $colorBlack;
+  font-weight: $bold;
+  border-right: $border $colorBlack;
 
 }
 
 #points th:nth-child(1) {
-  border-right: 1px solid $colorBlack;
+  border-right: $border $colorBlack;
 }
 
 .position {
   width: 22px;
   height: 22px;
   border-radius: 15px;
-  border: 2px solid rgb(136, 136, 136);
-  text-align: center;
-  float: left;
+  border: 2px solid $thirdColor;
+  text-align: $alignCenter;
+  float: $flotl;
   margin-left: 47px;
   z-index: 2;
   position: absolute;
@@ -240,12 +241,10 @@ created () {
 
 .numberPosition {
   margin-top: -13px;
-  float: left;
+  float: $flotl;
   margin-left: 6px;
   font-size: 14px;
-  font-weight: bold;
-  color: #666
+  font-weight: $bold;
+  color: $grey
 }
-  
-
 </style>
