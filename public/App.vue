@@ -17,13 +17,26 @@
     <div class="row justify-content-md-center">
       <div class="col-6">
         <div id="ranking">
-          <div class="row" v-for="(participante, index) in participantes" :key="index">
+          <div class="row rowInactive"
+            v-for="(participante, index) in participantes" 
+            :key="index"
+            :class="{rowActive: index === styleActive}"
+            @mouseover="selectItem(index)" @mouseout="styleActive = false">
             <div class="col-md-3 col-lg-2">
-              <img :src="participante.picture" width="70px" height="70px"/>
+              <img width="70px" height="70px"
+              class="imgInactive"
+              :src="participante.picture" 
+              :class="{imgActive: index === styleActive}" />
             </div>
             <div class="col-md-9 col-lg-10">
-              <p>{{ participante.name }}</p>
-              <p>{{ participante.description }}</p>
+              <p class="nameInactive"
+              :class="{nameActive: index === styleActive}" >
+              {{ participante.name }}
+              </p>
+              <p class="descriptionInactive"
+              :class="{descriptionActive: index === styleActive}">
+              {{ participante.description }}
+              </p>
               <div id="points">
                 <table>
                   <thead>
@@ -56,7 +69,9 @@ export default {
 
   data () {
     return {
-      participantes: []
+      participantes: [],
+      styleActive: false,
+      styleInactive: true
     }
   },
 
@@ -71,7 +86,12 @@ created () {
       .catch(error => {
         console.error(error);
       })
-  }
+  },
+  methods: {
+    selectItem(i) {
+      this.styleActive = i;
+    },
+  },
 }
 </script>
 
@@ -104,36 +124,54 @@ created () {
 }
 
 #ranking .row{
-  background-color: $secondColor;
   padding: $rankRowPadding
+}
+
+.rowInactive {
+  background-color: $secondColor;
+}
+
+.rowActive {
+  background-color: $primaryColor;
 }
 
 #ranking .row div:nth-child(2) {
   padding-top: $rankDivPadding;
 }
 
-#ranking .row:nth-child(2){
-  background-color: $primaryColor
-}
-
-#ranking img {
+.imgInactive {
   border-radius: 50%;
-  border: $borderRadius $primaryColor
+  border: 4px solid $primaryColor;
 }
 
-#ranking p:nth-child(1){
+.imgActive {
+  border-radius: 50%;
+  border: 4px solid #fff
+}
+
+#ranking p:nth-child(1) {
   font-size: $nameSize;
-  color: $primaryColor;
   font-weight: $bold;
   margin-bottom: $marginBottomName
+}
+.nameInactive {
+  color: $primaryColor;
+}
+.nameActive {
+  color: $secondColor;
 }
 
 #ranking p:nth-child(2){
   font-size: $descriptionSize;
-  color: $thirdColor;
   font-weight: $bold;
   margin-top: $marginTopDescription;
   float: left;
+}
+.descriptionInactive {
+  color: $thirdColor;
+}
+.descriptionActive {
+  color: $colorBlack;
 }
 
 #points {
@@ -157,15 +195,15 @@ created () {
   font-size: 20px;
   text-align: center;
   padding: 2px 8px;
-  color: #888;
+  color: $thirdColor;
   background-color: $secondColor;
   font-weight: bold;
-  border-right: 1px solid #000;
+  border-right: 1px solid $colorBlack;
 
 }
 
 #points th:nth-child(1) {
-  border-right: 1px solid #000;
+  border-right: 1px solid $colorBlack;
 }
 
 </style>
